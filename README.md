@@ -3,9 +3,9 @@
 ## Members
 - s336830 TIANSHI LIU
 - s348579 ZUNINO RAFFAELE
-- s123456 LASTNAME FIRSTNAME
+- s342937 OGGERO PAOLO
 
-# Exercise "NAME OF EXERCISE"
+# Exercise "SurplusFood"
 
 # Lab Journal
 
