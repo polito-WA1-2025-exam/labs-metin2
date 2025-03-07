@@ -1,6 +1,7 @@
-# Group "GROUP NAME"
+# Group "metin2"
 
 ## Members
+
 - s336830 TIANSHI LIU
 - s348579 ZUNINO RAFFAELE
 - s342937 OGGERO PAOLO
