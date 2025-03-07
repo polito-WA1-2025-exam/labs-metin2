@@ -1,3 +1,5 @@
+import Bag from "./bag.mjs";
+
 function Establishment(name, address, phone_number, type_cuisine) {
     this.name = name;
     this.address = address;
