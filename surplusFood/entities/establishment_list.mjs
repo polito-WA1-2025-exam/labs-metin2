@@ -2,7 +2,7 @@ export default function Establishment_list() {
     this.establishment_list = [];
 
     //Method to Add new objects to the collection
-    //To Be Implemented
+    this.addEstablishment = (establishment) => this.establishment_list.push(establishment);
 
     //Method to Retrieve objects based on specific criteria
     //To Be Implemented

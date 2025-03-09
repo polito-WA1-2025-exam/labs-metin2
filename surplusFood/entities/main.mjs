@@ -26,3 +26,13 @@ console.log(bag1);
 const my_bags = new Bag_list();
 console.log("====printing my_bags====");
 console.log(my_bags);
+
+//test methods add
+my_establishments.addEstablishment(establishment1);
+my_establishments.addEstablishment(establishment2);
+console.log("====printing my_establishment after adding establishments====");
+console.log(my_establishments);
+
+my_bags.addBag(bag1);
+console.log("====printing my_bags after adding bags====");
+console.log(my_bags);

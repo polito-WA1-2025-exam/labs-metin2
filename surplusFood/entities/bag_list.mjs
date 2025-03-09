@@ -2,7 +2,7 @@ export default function Bag_list() {
     this.bag_list = [];
 
     //Method to Add new objects to the collection
-    //To Be Implemented
+    this.addBag = (bag) => this.bag_list.push(bag);
 
     //Method to Retrieve objects based on specific criteria
     //To Be Implemented
