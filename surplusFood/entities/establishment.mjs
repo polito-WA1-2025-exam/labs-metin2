@@ -4,9 +4,4 @@ export default function Establishment(id, name, address, phone_number, type_cuis
   this.address = address;
   this.phone_number = phone_number;
   this.type_cuisine = type_cuisine;
-  this.bags = [];
-
-  //Method to Add new objects to the collection
-  //To Be Implemented
-
 }
