@@ -1,5 +1,5 @@
-export default function Order(id, user, orderitems) {
+export default function Order(id, userId, orderitems) {
     this.id = id;
-    this.user = user;
+    this.userId = userId;
     this.orderitems = orderitems;
 }

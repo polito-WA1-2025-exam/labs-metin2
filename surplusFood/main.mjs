@@ -12,6 +12,7 @@ import User_list from "./entities/user_list.mjs";
 import { ShoppingCart } from "./entities/shopping_cart.mjs";
 import Food_item from "./entities/food_item.mjs";
 
+/*
 const establishment1 = new Establishment(1, "McDonald", "Via roma 2", 123456, "Fast Food");
 const establishment2 = new Establishment(2, "BurgerKing", "Via roma 7", 234567, "Fast Food");
 const establishment3 = new Establishment(3, "Bella Napoli", "Via roma 20", 345678, "Pizzeria");
@@ -95,3 +96,18 @@ orders_list.addOrder(order1);
 console.log("===================Testing orders_list methods===================");
 console.log(orders_list);
 console.log(orders_list.getOrdersByUser(3));
+*/
+
+//DB testing
+
+const establishments_list = new Establishment_list();
+establishments_list.getAllEstablishments().then((list) => console.log(list));
+
+const bags_list = new Bag_list();
+bags_list.getEstablishmentBags(1).then((list) => console.log(list));
+
+const orders_list = new Order_list();
+orders_list.getUserOrders(1).then((list) => console.log(list));
+
+const carts_list = new Cart_item_list();
+carts_list.getUserCart(1).then((list) => console.log(list))

@@ -1,3 +1,8 @@
+import sqlite from 'sqlite3'
+
+import Bag from "./bag.mjs";
+import Food_item from "./food_item.mjs";
+
 export default function Bag_list() {
     this.bag_list = [];
 
@@ -19,4 +24,38 @@ export default function Bag_list() {
         this.bag_list.splice(index, 1);
     }
 
+    //Method to retrieve all bags of an establishment from DB
+    this.getEstablishmentBags = (establishmentId) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sql = `SELECT Bags.*,Food_items.id as 'food_itemId', Food_items.name, Food_items.quantity
+                    FROM Bags, Food_items
+                    WHERE Food_items.bagId = Bags.id AND Bags.establishmentId = ?`;
+
+        db.all(sql, [establishmentId], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                if (!rows) {
+                    reject(err);
+                } else {
+                    const combinedData = rows.reduce((acc, row) => {
+                        if (!acc[row.id]) {
+                            acc[row.id] = { id: row.id, type: row.type, status: row.status, price: row.price, size: row.size, establishmentId: row.establishmentId, food_items: []};
+                        }
+                        acc[row.id].food_items.push(new Food_item(row.food_itemId, row.name, row.quantity));
+                      
+                        return acc;
+                    }, {});
+                      
+                    const intermediate = Object.values(combinedData);
+    
+                    const result = intermediate.map((item) => new Bag(item.id, item.type, item.status, item.price, item.size, item.establishmentId, item.food_items ));
+                    resolve(result);
+                }
+
+            }
+        });
+
+        db.close();
+    })
 }

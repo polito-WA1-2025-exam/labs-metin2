@@ -1,3 +1,7 @@
+import sqlite from 'sqlite3'
+
+import Establishment from "./establishment.mjs";
+
 export default function Establishment_list() {
     this.establishment_list = [];
 
@@ -18,5 +22,29 @@ export default function Establishment_list() {
         const index = this.establishment_list.findIndex(e => e.id === id);
         this.establishment_list.splice(index, 1);
     }
+
+    //Method to retrieve all establishments from DB
+    this.getAllEstablishments = () => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sql = `SELECT * FROM Establishments`;
+
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                if (!rows) {
+                    reject(err);
+                } else {    
+                    const result = rows.map((item) => new Establishment(item.id, item.name, item.address, item.phone_number, item.type_cuisine));
+                    resolve(result);
+                }
+
+            }
+        });
+
+        db.close();
+
+    })
+    
 
 }
