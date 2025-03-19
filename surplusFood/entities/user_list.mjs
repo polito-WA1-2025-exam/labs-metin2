@@ -1,3 +1,7 @@
+import sqlite from 'sqlite3'
+
+import User from "./user.mjs";
+
 export default function User_list() {
     this.user_list = [];
 
@@ -18,5 +22,26 @@ export default function User_list() {
         const index = this.user_list.findIndex(u => u.id === id);
         this.user_list.splice(index, 1);
     }
+
+    //Method to retrieve all establishments from DB
+    this.getAllUsers = () => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sql = `SELECT * FROM Users`;
+
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                if (!rows) {
+                    reject(err);
+                } else {    
+                    const result = rows.map((item) => new User(item.id, item.username, item.password));
+                    resolve(result);
+                }
+
+            }
+        });
+        db.close();
+    })
 
 }

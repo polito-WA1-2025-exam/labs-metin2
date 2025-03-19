@@ -103,6 +103,9 @@ console.log(orders_list.getOrdersByUser(3));
 const establishments_list = new Establishment_list();
 establishments_list.getAllEstablishments().then((list) => console.log(list));
 
+const users_list = new User_list();
+users_list.getAllUsers().then((list) => console.log(list));
+
 const bags_list = new Bag_list();
 bags_list.getEstablishmentBags(1).then((list) => console.log(list));
 
