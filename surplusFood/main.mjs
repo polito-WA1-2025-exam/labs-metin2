@@ -9,7 +9,6 @@ import Order from "./entities/order.mjs";
 import Order_list from "./entities/order_list.mjs";
 import User from "./entities/user.mjs";
 import User_list from "./entities/user_list.mjs";
-import { ShoppingCart } from "./entities/shopping_cart.mjs";
 import Food_item from "./entities/food_item.mjs";
 
 /*

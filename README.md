@@ -29,24 +29,56 @@ Cart_items contains all carts items since a user can only have one cart, while f
 # API
 
 - Read the list of all establishments
-    GET /establishments
+    URL: `/api/establishments`
+    HTTP METHOD: GET
+    returns an array of establishments
+
 - Read the list of all bags
-    GET /bags
+    URL: `/api/bags`
+    HTTP METHOD: GET
+    returns an array of bags
+
 - Read the list of bags of an establishment
-    GET /establishments/:id/bags
+    URL: `/api/establishments/:id/bags`
+    HTTP METHOD: GET
+    returns an array of bags
+
 - Read the list of orders of a user
-    GET /users/:id/orders
+    URL: `/api/users/:id/orders`
+    HTTP METHOD: GET
+    returns an array of orders
+
 - Read the list of cart_items of a user
-    GET /users/:id/cart_items
+    URL: `/api/users/:id/cart_items`
+    HTTP METHOD: GET
+    returns an array of cart_items
+
 - Create a cart_item
-    POST /cart_items
+    URL: `/api/cart_items`
+    HTTP METHOD: POST
+    receive a cart_item object with 'id' field missing or undefined 
+    returns the id of the created cart_item
+
 - Create an order
-    POST /orders
+    URL: `/api/orders`
+    HTTP METHOD: POST
+    receive a order object with 'id' field missing or undefined 
+    returns the id of the created order
+
 - Delete a cart_item
-    DELETE /cart_items
+    URL: `/api/cart_items`
+    HTTP METHOD: DELETE
+    receives the id of an order_item and deletes the corresponding cart_item
+
 - Delete an order_item if the pickup_time hasn't already passed
-    DELETE /order_items
+    URL: `/api/order_items`
+    HTTP METHOD: DELETE
+    receives the id of an order_item and deletes the corresponding order_item
+
 - Update cart_item
     PUT /cart_items
+    receives a cart_item object and updates the database
+
 - Update order_item
     PUT order_items
+    receives a order_item object and updates the database
