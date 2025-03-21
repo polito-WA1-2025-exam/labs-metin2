@@ -100,17 +100,33 @@ console.log(orders_list.getOrdersByUser(3));
 
 //DB testing
 
-const establishments_list = new Establishment_list();
-establishments_list.getAllEstablishments().then((list) => console.log(list));
+async function main() {
+    const establishments_list = new Establishment_list();
+    const all_establishments = await establishments_list.getAllEstablishments();
+    console.log(all_establishments);
 
-const users_list = new User_list();
-users_list.getAllUsers().then((list) => console.log(list));
+    const users_list = new User_list();
+    const all_users = await users_list.getAllUsers();
+    console.log(all_users);
 
-const bags_list = new Bag_list();
-bags_list.getEstablishmentBags(1).then((list) => console.log(list));
+    const bags_list = new Bag_list();
+    const establishment1_bags = await bags_list.getEstablishmentBags(1);
+    console.log(establishment1_bags);
 
-const orders_list = new Order_list();
-orders_list.getUserOrders(1).then((list) => console.log(list));
+    const orders_list = new Order_list();
+    const user_orders = await orders_list.getUserOrders(1);
+    console.log(user_orders);
 
-const carts_list = new Cart_item_list();
-carts_list.getUserCart(1).then((list) => console.log(list))
+    const carts_list = new Cart_item_list();
+    const user_cart = await carts_list.getUserCart(1);
+    console.log(user_cart);
+
+    const food_item1 = new Food_item(undefined, "Chips", 2);
+    const food_item2 = new Food_item(undefined, "Burger", 2);
+    const bag1 = new Bag(undefined, "Regular", "Available", 12.5, "Medium", 1, [food_item1, food_item2]);
+    const last_bag_id = await bags_list.addBag(bag1);
+    
+    const establishment1_bags_after_insertion = await bags_list.getEstablishmentBags(1);
+    console.log(establishment1_bags_after_insertion);
+}
+main();
