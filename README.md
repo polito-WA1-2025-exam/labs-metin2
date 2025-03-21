@@ -25,3 +25,28 @@
 - Table Order_food_items_to_delete stores the food items that a user wants to delete from an item in an order (id, order_itemId, food_itemId)
 
 Cart_items contains all carts items since a user can only have one cart, while for orders Order and Order_items are distinct tables to retain the hierarchy, since a user can have more orders and an order can have multiple order items (bags).
+
+# API
+
+- Read the list of all establishments
+    GET /establishments
+- Read the list of all bags
+    GET /bags
+- Read the list of bags of an establishment
+    GET /establishments/:id/bags
+- Read the list of orders of a user
+    GET /users/:id/orders
+- Read the list of cart_items of a user
+    GET /users/:id/cart_items
+- Create a cart_item
+    POST /cart_items
+- Create an order
+    POST /orders
+- Delete a cart_item
+    DELETE /cart_items
+- Delete an order_item if the pickup_time hasn't already passed
+    DELETE /order_items
+- Update cart_item
+    PUT /cart_items
+- Update order_item
+    PUT order_items
