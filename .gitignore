@@ -12,8 +12,6 @@ surplusFood/database.db
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-package-lock.json
-package.json
 
 # Local History for Visual Studio Code
 .history/

@@ -2,13 +2,11 @@ import sqlite from 'sqlite3'
 
 import Order_item from "./order_item.mjs";
 import Order from "./order.mjs";
+import Order_item_list from "./order_item_list.mjs";
 import Food_item from "./food_item.mjs";
 
 export default function Order_list() {
     this.order_list = [];
-
-    //Method to Add new objects to the collection
-    this.addOrder = (order) => this.order_list.push(order);
 
     //Method to Retrieve objects based on specific criteria
     this.getOrdersByUser = (user_id) => {
@@ -70,6 +68,52 @@ export default function Order_list() {
                     const result = intermediate.map((item) => new Order(item.id, item.userId, item.order_items));
                     resolve(result);
                 }
+            }
+        });
+
+        db.close();
+    })
+
+
+    //Method to add a new order to the DB
+    this.addOrder = (order) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sqlCart_item = `INSERT INTO Orders (userId)
+                    VALUES (?)`;
+
+        db.run(sqlCart_item, [order.userId], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                const newOrderId = this.lastID;
+                const order_item_list = new Order_item_list();
+
+                console.log(order.orderitems);
+                for  (const order_item of order.orderitems) {
+                    await order_item_list.addOrder_item(order_item, newOrderId);
+                }
+                resolve(newOrderId);
+            }
+        });
+
+        db.close();
+    })
+
+    //Method to add a new cart_item to the DB
+    this.deleteOrder = (orderId) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sqlCart_item = `DELETE FROM Orders 
+                            WHERE id = ?`;
+
+        db.run(sqlCart_item, [orderId], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                const order_item_list = new Order_item_list();
+
+                await order_item_list.deleteOrder_item(orderId);
+
+                resolve(orderId);
             }
         });
 

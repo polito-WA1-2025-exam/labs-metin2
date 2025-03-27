@@ -1,12 +1,11 @@
 import sqlite from 'sqlite3'
 import Cart_item from './cart_item.mjs';
 import Food_item from './food_item.mjs';
+import Food_item_list from './food_item_list.mjs';
 
 export default function Cart_item_list() {
     this.cart_item_list = [];
 
-    //Method to Add new objects to the collection
-    this.addCartItem = (cart_item) => this.cart_item_list.push(cart_item);
 
     //Method to Retrieve objects based on specific criteria
     this.getCartItemsByUser = (user_id) => {
@@ -29,7 +28,7 @@ export default function Cart_item_list() {
         const sql = `SELECT Cart_items.id, Cart_items.userId, Cart_items.bagId, Cart_items.pickup_time,
                     Food_items.id AS 'food_itemId', Food_items.name, Food_items.quantity
                     FROM Cart_items 
-                    LEFT JOIN Cart_food_items_to_delete ON Cart_items.id = Cart_food_items_to_delete.food_itemId
+                    LEFT JOIN Cart_food_items_to_delete ON Cart_items.id = Cart_food_items_to_delete.cart_itemId
                     LEFT JOIN Food_items ON Cart_food_items_to_delete.food_itemId = Food_items.id
                     WHERE Cart_items.userId = ?`;
 
@@ -40,13 +39,12 @@ export default function Cart_item_list() {
                 if (!rows) {
                     reject(err);
                 } else {
-
                     const combinedFood_items = rows.reduce((acc, row) => {
-                        if (!acc[row.order_itemId]) {
-                            acc[row.order_itemId] = { id: row.id, userId: row.userId, bagId: row.bagId, pickup_time: row.pickup_time, food_items: []};
+                        if (!acc[row.id]) {
+                            acc[row.id] = { id: row.id, userId: row.userId, bagId: row.bagId, pickup_time: row.pickup_time, food_items: []};
                         }
                         if (row.food_itemId != null){
-                            acc[row.order_itemId].food_items.push(new Food_item(row.food_itemId, row.name, row.quantity));
+                            acc[row.id].food_items.push(new Food_item(row.food_itemId, row.name, row.quantity));
                         }
                       
                         return acc;
@@ -57,6 +55,50 @@ export default function Cart_item_list() {
                     const result = intermediate.map((item) => new Cart_item(item.id, item.userId, item.bagId, item.pickup_time, item.food_items));
                     resolve(result);
                 }
+            }
+        });
+
+        db.close();
+    })
+
+    //Method to add a new cart_item to the DB
+    this.addCartItem = (cart_item) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sqlCart_item = `INSERT INTO Cart_items (userId, bagId, pickup_time)
+                    VALUES (?,?,?)`;
+
+        db.run(sqlCart_item, [cart_item.userId, cart_item.bagId, cart_item.pickup_time], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                const newCart_itemId = this.lastID;
+                const food_item_list = new Food_item_list();
+
+                for  (const food_item of cart_item.food_items_to_delete) {
+                    await food_item_list.addCart_Food_item_delete(food_item.id, newCart_itemId);
+                }
+                resolve(newCart_itemId);
+            }
+        });
+
+        db.close();
+    })
+
+    //Method to add a new cart_item to the DB
+    this.deleteCartItem = (cart_itemId) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sqlCart_item = `DELETE FROM Cart_items 
+                            WHERE id = ?`;
+
+        db.run(sqlCart_item, [cart_itemId], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                const food_item_list = new Food_item_list();
+
+                await food_item_list.deleteCart_Food_item_delete(cart_itemId);
+
+                resolve(cart_itemId);
             }
         });
 
