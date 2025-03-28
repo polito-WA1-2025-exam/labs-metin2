@@ -1,0 +1,11 @@
+-- database: ../database2.db
+
+CREATE TABLE "Bag" (
+	"id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"type"	TEXT NOT NULL,
+	"status"	TEXT NOT NULL,
+	"price"	REAL NOT NULL,
+	"size"	TEXT NOT NULL,
+	"establishmentId"	INTEGER NOT NULL
+	
+)

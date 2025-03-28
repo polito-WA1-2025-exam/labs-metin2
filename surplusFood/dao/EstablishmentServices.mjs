@@ -1,0 +1,1 @@
+import Establishment from "../models/establishment.mjs";
