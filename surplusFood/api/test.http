@@ -1,1 +1,35 @@
 GET http://localhost:3001/users/1/orders
+
+###
+POST http://localhost:3001/users/1/orders
+content-type: application/json
+
+{
+    "id": 1,
+    "userId": 1,
+    "orderitems": [
+      {
+        "id": 1,
+        "bagId": 2,
+        "pickup_time": "13:00",
+        "food_items_to_delete": [
+          {
+            "id": 3,
+            "name": "Burger",
+            "quantity": 2
+          },
+          {
+            "id": 4,
+            "name": "Muffin",
+            "quantity": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "bagId": 2,
+        "pickup_time": "13:00",
+        "food_items_to_delete": []
+      }
+    ]
+  }

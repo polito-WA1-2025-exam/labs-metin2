@@ -155,7 +155,7 @@ async function main() {
     console.log("====================printing the user orders AFTER adding====================");
     user_orders = await orders_list.getUserOrders(1);
     console.log(user_orders);
-*/
+
 
     //DELETE DB testing
 
@@ -176,5 +176,13 @@ async function main() {
     console.log(new_user_orders);
     const new_user_cart = await carts_list.getUserCart(1);
     console.log(new_user_cart);
+
+    */
+
+    //UPDATE bag status
+
+    const bags = new Bag_list();
+    const id = await bags.updateBagStatus(1,'Available')
+    console.log(id);
 }
 main();

@@ -85,4 +85,21 @@ export default function Bag_list() {
 
         db.close();
     })
+
+    //Method to add a new bag to the DB
+    this.updateBagStatus = (id, status) => new Promise((resolve, reject) => {
+        const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
+        const sqlBag = `UPDATE Bags SET status = ?
+                        WHERE id = ?`;
+
+        db.run(sqlBag, [status, id], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                resolve(id);
+            }
+        });
+
+        db.close();
+    })
 }
