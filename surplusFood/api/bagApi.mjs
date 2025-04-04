@@ -9,8 +9,9 @@ app.use(morgan("dev"));
 
 /*
 app.get("/bags", async (request, response) => {
+app.get("/establishments/:id/bags", async (request, response) => {
   try {
-    const bags = await new Bag_list().getEstablishmentBags(1);
+    const bags = await new Bag_list().getEstablishmentBags(request.params.id);
     if (bags.error) {
       response.status(404).json(bags);
     } else {

@@ -2,6 +2,7 @@ import sqlite from 'sqlite3'
 
 import Bag from "./bag.mjs";
 import Food_item from "./food_item.mjs";
+import Food_item_list from "./food_item_list.mjs";
 
 export default function Bag_list() {
 
@@ -47,17 +48,15 @@ export default function Bag_list() {
         const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
         const sqlBag = `INSERT INTO Bags (type, status, price, size, establishmentId)
                     VALUES (?,?,?,?,?)`;
-        const sqlFood_item = `INSERT INTO Food_items (name, quantity, bagId)
-                    VALUES (?,?,?)`;
 
         db.run(sqlBag, [bag.type, bag.status, bag.price, bag.size, bag.establishmentId], async function (err) {
             if (err)
                 reject(err);
             else {
                 const newBagId = this.lastID;
-
+                const food_item_list = new Food_item_list();
                 for  (const food_item of bag.food_items) {
-                    await addFood_item(food_item, newBagId);
+                    await food_item_list.addFood_item(food_item, newBagId);
                 }
                 resolve(newBagId);
             }
@@ -65,21 +64,21 @@ export default function Bag_list() {
 
         db.close();
     })
-}
 
-//to be moved to food_item.mjs
-function addFood_item(food_item, newBagId) {
-    return new Promise((resolve, reject) => {
+    //Method to add a new bag to the DB
+    this.updateBagStatus = (id, status) => new Promise((resolve, reject) => {
         const db = new sqlite.Database('./surplusFood/database.db', (err)=>{ if(err) console.log("DB problems", err)});
-        const sqlFood_item = `INSERT INTO Food_items (name, quantity, bagId)
-                            VALUES (?,?,?)`;
+        const sqlBag = `UPDATE Bags SET status = ?
+                        WHERE id = ?`;
 
-        db.run(sqlFood_item, [food_item.name, food_item.quantity, newBagId], function (err) {
-        if (err)
-            reject(err);
-        else
-            resolve(this.lastID);
+        db.run(sqlBag, [status, id], async function (err) {
+            if (err)
+                reject(err);
+            else {
+                resolve(id);
+            }
         });
+
         db.close();
     })
 }

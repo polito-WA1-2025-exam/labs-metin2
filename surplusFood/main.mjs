@@ -10,6 +10,8 @@ import Order_list from "./entities/order_list.mjs";
 import User from "./entities/user.mjs";
 import User_list from "./entities/user_list.mjs";
 import Food_item from "./entities/food_item.mjs";
+import Food_item_list from "./entities/food_item_list.mjs";
+import Order_item_list from "./entities/order_item_list.mjs";
 
 /*
 const establishment1 = new Establishment(1, "McDonald", "Via roma 2", 123456, "Fast Food");
@@ -100,6 +102,7 @@ console.log(orders_list.getOrdersByUser(3));
 //DB testing
 
 async function main() {
+    /*
     const establishments_list = new Establishment_list();
     const all_establishments = await establishments_list.getAllEstablishments();
     console.log(all_establishments);
@@ -113,11 +116,11 @@ async function main() {
     console.log(establishment1_bags);
 
     const orders_list = new Order_list();
-    const user_orders = await orders_list.getUserOrders(1);
+    let user_orders = await orders_list.getUserOrders(1);
     console.log(user_orders);
 
     const carts_list = new Cart_item_list();
-    const user_cart = await carts_list.getUserCart(1);
+    let user_cart = await carts_list.getUserCart(1);
     console.log(user_cart);
 
     const food_item1 = new Food_item(undefined, "Chips", 2);
@@ -127,5 +130,59 @@ async function main() {
     
     const establishment1_bags_after_insertion = await bags_list.getEstablishmentBags(1);
     console.log(establishment1_bags_after_insertion);
+
+    const food_item_list = new Food_item_list();
+    const food_items_last_bag =  await food_item_list.getBagFood_items(last_bag_id);
+
+    //const cart_item1 = new Cart_item(undefined, 1, last_bag_id, "10:00", [food_items_last_bag[0]]);
+
+    //const cart_items_list = new Cart_item_list();
+    //const last_cart_item_id = await cart_items_list.addCartItem(cart_item1);
+
+    //user_cart = await carts_list.getUserCart(1);
+    //console.log(user_cart);
+
+    console.log("====================printing the user orders BEFORE adding====================");
+    user_orders = await orders_list.getUserOrders(1);
+    console.log(user_orders);
+
+    const order_item1 = new Order_item(undefined, last_bag_id, "10:00", [food_items_last_bag[0]]);
+    const order = new Order(undefined, 1, [order_item1]);
+
+    const order_list = new Order_list();
+    const last_order_item_id = await order_list.addOrder(order);
+
+    console.log("====================printing the user orders AFTER adding====================");
+    user_orders = await orders_list.getUserOrders(1);
+    console.log(user_orders);
+
+
+    //DELETE DB testing
+
+    const orders_list = new Order_list();
+    let user_orders = await orders_list.getUserOrders(1);
+    console.log(user_orders);
+
+    const carts_list = new Cart_item_list();
+    let user_cart = await carts_list.getUserCart(1);
+    console.log(user_cart);
+
+
+    console.log("==================printing after deleting order and cart item 1=============================")
+    await orders_list.deleteOrder(1);
+    await carts_list.deleteCartItem(1);
+
+    const new_user_orders = await orders_list.getUserOrders(1);
+    console.log(new_user_orders);
+    const new_user_cart = await carts_list.getUserCart(1);
+    console.log(new_user_cart);
+
+    */
+
+    //UPDATE bag status
+
+    const bags = new Bag_list();
+    const id = await bags.updateBagStatus(1,'Available')
+    console.log(id);
 }
 main();
