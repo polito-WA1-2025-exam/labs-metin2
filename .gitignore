@@ -4,7 +4,7 @@
 ### Sql ###
 node_modules/
 surplusFood/database.db
-
+surplusFood/database2.db
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -12,8 +12,7 @@ surplusFood/database.db
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-package-lock.json
-package.json
+
 
 # Local History for Visual Studio Code
 .history/
