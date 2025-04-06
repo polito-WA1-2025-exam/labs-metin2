@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getEstablishments } from "./services/api";
+import { getEstablishments } from "./services/api/establishmentApi";
 
 function App() {
   const [establishments, setEstablishments] = useState([]);
@@ -19,7 +19,7 @@ function App() {
       <ul>
         {establishments.map((est) => (
           <li key={est.id}>
-            {est.name} | Phone: {est.phone}
+            {est.id} - {est.name} - {est.address} - {est.phone} - {est.category}
           </li>
         ))}
       </ul>
