@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3001;
 
 // enable CORS for requests from 5173
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json()); // parse JSON bodies
 
 app.get("/api/ping", (req, res) => {
