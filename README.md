@@ -19,9 +19,9 @@
 
 ## Summary
 
-1. We configured CORS for `localhost:5173` and tested a `/api/establishments` route with dummy data.
-2. We moved our client fetch code into `client/src/api/establishmentApi.js` for cleaner organization.
-3. We displayed the dummy data in React by calling `getEstablishments()` and mapping the results in `App.jsx`.
+1. Configured CORS for `localhost:5173` and tested a `/api/establishments` route with dummy data.
+2. Moved our client fetch code into `client/src/api/establishmentApi.js` for cleaner organization.
+3. Displayed the dummy data in React by calling `getEstablishments()` and mapping the results in `App.jsx`.
 
 ## Next Steps
 
