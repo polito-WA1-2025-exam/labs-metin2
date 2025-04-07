@@ -39,3 +39,6 @@ coverage/
 
 # (Optional) If your server code eventually has a build step
 server/dist/
+
+# notes
+ToDoList.md
