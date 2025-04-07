@@ -8,7 +8,7 @@ const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
 // open the database
-const dbPath = path.join(__dirname, "establishments.db");
+const dbPath = path.join(__dirname, "surplusfood.db");
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error("Error opening database " + err.message);
