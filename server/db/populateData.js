@@ -346,7 +346,7 @@ const insertSampleDataToTables = () => {
     });
     // insert sample data into reservation table
     const insertReservation = db.prepare(
-      "INSERT INTO reservation (userID, bagID, status, allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?, ?)"
+      "INSERT INTO reservations (userID, bagID, status, allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?, ?)"
     );
     sampleDataForReservationTable.forEach((reservation) => {
       insertReservation.run(
