@@ -23,8 +23,14 @@
 2. Moved our client fetch code into `client/src/api/establishmentApi.js` for cleaner organization.
 3. Displayed the dummy data in React by calling `getEstablishments()` and mapping the results in `App.jsx`.
 
-## Next Steps
+## Date: 2025-04-09
 
-1. Replace dummy data with actual DAO queries using `createTables.js` and `populateData.js`.
-2. Add more routes (e.g., bags, reservations, users) and matching API calls in React.
-3. Continue refining the SurplusFood application to align with the lab requirements.
+**Name**: Tianshi Liu
+
+## Summary
+
+1. Created a new `server/dao/establishmentDao.js` file to handle database queries related to establishments.
+2. Implemented the functions to fetch establishments from the database.
+3. Updated the `/api/establishments` route to use the new DAO functions.
+4. Created a new `server/dao/bagDao.js` file to handle database queries related to bags.
+5. Implemented the functions to fetch bags from the database.
