@@ -20,7 +20,10 @@ router.get("/", async (req, res) => {
 
 // Route to get a bag by ID
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid bag ID" });
+  }
   try {
     const bag = await bagDao.getBagById(id);
     if (bag) {
@@ -33,3 +36,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// export the router to be used in the main server file
+module.exports = router;
+// This module can be imported in the main server file to use the routes defined here.

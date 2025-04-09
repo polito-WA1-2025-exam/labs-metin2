@@ -18,11 +18,11 @@ So we can store and retrieve real information (bags, reservations, user accounts
 ## 2. DAO Layer
 
 - [x] **Bag DAO** (`bagDao.js` in `server/dao/`)
-  - `listBags()`, `getBag(id)`, etc.
+  - `getAllBags()`, `getBagById(id)`, etc.
 - [ ] **User DAO** (`userDao.js` in `server/dao/`)
   - `getUserByUsername()`, `verifyCredentials()`, etc.
-- [ ] **Reservation DAO** (`reservationDao.js`)
-  - `createReservation()`, `deleteReservation()`, `listUserReservations()`, etc.
+- [x] **Reservation DAO** (`reservationDao.js`)
+  - `createReservation()`, `deleteReservationByBagId()`, `getReservationsByBagId()`, `getReservationsByUserId()` etc.
 
 **Why?**  
 Keep all database queries in a clear, modular structure.
@@ -31,13 +31,17 @@ Keep all database queries in a clear, modular structure.
 
 ## 3. Routes and Controllers
 
-- [ ] **Bags Router** (`routes/bags.js`):
+- [x] **Bags Router** (`routes/bags.js`):
+
   - `GET /api/bags` → fetch all bags
   - `GET /api/bags/:id` → get specific bag
-  - Possibly `POST /api/bags` for adding new ones, if needed
-- [ ] **Reservations Router** (`routes/reservations.js`)
-  - `POST /api/reservations` → confirm a shopping cart
-  - `DELETE /api/reservations/:id` → remove a reservation
+
+- [x] **Reservations Router** (`routes/reservations.js`)
+  - `POST /api/reservations` → create a reservation
+  - `DELETE /api/reservations/bags/:bagID/reservations` → remove a reservation by bag ID
+  - `GET /api/reservations/bags/:bagID/reservations` → get reservations by bag ID
+  - `GET /api/reservations/users/:userID/reservations` → get reservations by user ID
+  -
 - [ ] **User/Authentication**:
   - Might combine into `routes/auth.js` or `routes/users.js`
   - `POST /api/login`

@@ -45,6 +45,7 @@ const createBagTable = () => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         type TEXT NOT NULL,                     --  "suprise" or "regular"
         content TEXT,                           --  items listed in regular bag and option for suprise bag  
+        status TEXT NOT NULL DEFAULT "available", -- status of the bag, "available", "reserved"
         price REAL NOT NULL,                    --  price of the bag
         size TEXT NOT NULL,                     --  size of the bag, "small", "medium", "large"
         pickupStart TEXT NOT NULL,              --  start time for pickup
@@ -90,7 +91,7 @@ const createReservationTable = () => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userID INTEGER NOT NULL,
         bagID INTEGER NOT NULL,
-        status TEXT NOT NULL DEFAULT "in-cart",            -- status of the reservation, "in-cart", "reserved", "cancelled"
+        status TEXT NOT NULL DEFAULT "in-cart",            -- status of the reservation, "in-cart", "reserved"
         allergies TEXT,                               -- allergies of the user
         specialRequests TEXT,                      -- special requests of the user
         removedItems TEXT,                        -- items removed from the bag

@@ -153,6 +153,7 @@ const sampleDataForBagTable = [
   {
     type: "regular",
     content: "Apples, Bananas, Oranges",
+    status: "reserved",
     price: 10.0,
     size: "small",
     pickupStart: "2023-10-01T09:00:00",
@@ -162,6 +163,7 @@ const sampleDataForBagTable = [
   {
     type: "regular",
     content: "Bread, Milk, Eggs",
+    status: "available",
     price: 15.0,
     size: "medium",
     pickupStart: "2023-10-02T09:00:00",
@@ -171,6 +173,7 @@ const sampleDataForBagTable = [
   {
     type: "surprise",
     content: "Surprise Bag 1",
+    status: "reserved",
     price: 20.0,
     size: "large",
     pickupStart: "2023-10-03T09:00:00",
@@ -180,6 +183,7 @@ const sampleDataForBagTable = [
   {
     type: "surprise",
     content: "Surprise Bag 2",
+    status: "available",
     price: 25.0,
     size: "small",
     pickupStart: "2023-10-04T09:00:00",
@@ -189,6 +193,7 @@ const sampleDataForBagTable = [
   {
     type: "regular",
     content: "Chicken, Rice, Vegetables",
+    status: "available",
     price: 12.0,
     size: "medium",
     pickupStart: "2023-10-05T09:00:00",
@@ -198,6 +203,7 @@ const sampleDataForBagTable = [
   {
     type: "regular",
     content: "Pasta, Sauce, Cheese",
+    status: "available",
     price: 18.0,
     size: "large",
     pickupStart: "2023-10-06T09:00:00",
@@ -207,6 +213,7 @@ const sampleDataForBagTable = [
   {
     type: "surprise",
     content: "Surprise Bag 3",
+    status: "available",
     price: 22.0,
     size: "small",
     pickupStart: "2023-10-07T09:00:00",
@@ -216,6 +223,7 @@ const sampleDataForBagTable = [
   {
     type: "surprise",
     content: "Surprise Bag 4",
+    status: "available",
     price: 30.0,
     size: "medium",
     pickupStart: "2023-10-08T09:00:00",
@@ -292,13 +300,14 @@ const insertSampleDataToTables = () => {
   db.serialize(() => {
     // insert sample data into bag table
     const insertBag = db.prepare(
-      "INSERT INTO bag (type, content, price, size, pickupStart, pickupEnd, establishmentID) VALUES (?, ?, ?, ?, ?, ?, ?)"
+      "INSERT INTO bag (type, content, status, price, size, pickupStart, pickupEnd, establishmentID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     );
     sampleDataForBagTable.forEach((bag) => {
       insertBag.run(
         [
           bag.type,
           bag.content,
+          bag.status,
           bag.price,
           bag.size,
           bag.pickupStart,

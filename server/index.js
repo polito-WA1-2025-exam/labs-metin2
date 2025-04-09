@@ -7,7 +7,11 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 
+// import routes
 const establishmentRouter = require("./routes/establishments");
+const bagRouter = require("./routes/bags");
+const userRouter = require("./routes/users");
+const reservationRouter = require("./routes/reservations");
 
 const app = express();
 const PORT = 3001;
@@ -16,25 +20,17 @@ const PORT = 3001;
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json()); // parse JSON bodies
 
-// Mount the routes
+// Mount establishments routes
 app.use("/api/establishments", establishmentRouter);
+// Mount bags routes
+app.use("/api/bags", bagRouter);
+// Mount users routes
+app.use("/api/users", userRouter);
+// Mount reservations routes
+app.use("/api/reservations", reservationRouter);
 
 app.get("/api/ping", (req, res) => {
   res.json({ message: "pong" });
-});
-
-// This won't be useful because there is a same path in the router, and it is before this one
-app.get("/api/establishments", async (req, res) => {
-  try {
-    const dummyData = [
-      { id: 1, name: "Store One", phone: "555-1234" },
-      { id: 2, name: "Restaurant ABC", phone: "555-9876" },
-    ];
-    res.json(dummyData);
-  } catch (error) {
-    console.error("Error fetching establishment data:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
 });
 
 app.listen(PORT, () => {
