@@ -10,7 +10,7 @@ const passport = require("passport");
 // import routes
 const establishmentRouter = require("./routes/establishments");
 const bagRouter = require("./routes/bags");
-// const userRouter = require("./routes/users");
+const userRouter = require("./routes/users");
 const reservationRouter = require("./routes/reservations");
 
 const app = express();
@@ -25,7 +25,7 @@ app.use("/api/establishments", establishmentRouter);
 // Mount bags routes
 app.use("/api/bags", bagRouter);
 // Mount users routes
-// app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);
 // Mount reservations routes
 app.use("/api/reservations", reservationRouter);
 

@@ -4,8 +4,6 @@
     This module provides functions to interact with the reservation table.
 */
 const db = require("./db");
-const path = require("path");
-const fs = require("fs");
 
 // Function to create a new reservation
 const createReservation = (reservation) => {

@@ -6,7 +6,6 @@
 */
 
 const db = require("./db");
-const path = require("path");
 
 // Function to get all establishments from the database
 const getAllEstablishments = () => {

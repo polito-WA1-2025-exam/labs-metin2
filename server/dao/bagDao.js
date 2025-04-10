@@ -6,7 +6,6 @@
 */
 
 const db = require("./db");
-const path = require("path");
 
 // Function to get all bags from the database
 const getAllBags = () => {
