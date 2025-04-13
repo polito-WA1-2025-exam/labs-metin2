@@ -49,3 +49,4 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Export the functions for use in other modules
+module.exports = passport;
