@@ -19,8 +19,8 @@ So we can store and retrieve real information (bags, reservations, user accounts
 
 - [x] **Bag DAO** (`bagDao.js` in `server/dao/`)
   - `getAllBags()`, `getBagById(id)`, etc.
-- [ ] **User DAO** (`userDao.js` in `server/dao/`)
-  - `getUserByUsername()`, `verifyCredentials()`, etc.
+- [x] **User DAO** (`userDao.js` in `server/dao/`)
+  - `getUserByUsername()`, etc.
 - [x] **Reservation DAO** (`reservationDao.js`)
   - `createReservation()`, `deleteReservationByBagId()`, `getReservationsByBagId()`, `getReservationsByUserId()` etc.
 
@@ -42,7 +42,7 @@ Keep all database queries in a clear, modular structure.
   - `GET /api/reservations/bags/:bagID/reservations` → get reservations by bag ID
   - `GET /api/reservations/users/:userID/reservations` → get reservations by user ID
   -
-- [ ] **User/Authentication**:
+- [x] **User/Authentication**:
   - Might combine into `routes/auth.js` or `routes/users.js`
   - `POST /api/login`
   - `POST /api/logout`
@@ -55,10 +55,10 @@ So the client can call distinct endpoints, each dedicated to a resource or featu
 
 ## 4. Authentication with Passport
 
-- [ ] **Setup Passport** in `server/index.js` (or a dedicated `auth.js`):
+- [x] **Setup Passport** in `server/index.js` (or a dedicated `auth.js`):
   - `passport.initialize()`, `passport.session()`
   - Configure `passport-local` strategy to handle login credentials
-- [ ] **Session Management**:
+- [x] **Session Management**:
   - Use `express-session` or equivalent
   - Potentially store session in SQLite or in-memory during development
 
