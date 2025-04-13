@@ -69,7 +69,7 @@ To manage user login, logout, daily bag reservations, etc., in line with Surplus
 
 ## 5. Client-Side Reorganization
 
-- [ ] **Create an `api/` folder** under `client/src/`:
+- [x] **Create an `api/` folder** under `client/src/`:
   - Move `api.js` → `establishmentApi.js` inside `api/`
   - Add `bagApi.js`, `authApi.js`, etc.
 - [ ] **Refactor** React components to import from the new `api/` files
