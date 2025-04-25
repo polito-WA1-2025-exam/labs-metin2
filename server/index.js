@@ -60,3 +60,6 @@ app.get("/api/ping", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// to do
+// test all the api

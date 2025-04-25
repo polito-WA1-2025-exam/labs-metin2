@@ -71,7 +71,6 @@ const createUserTable = () => {
         name TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,           --  hashed+salted password 
-        salt TEXT NOT NULL,               --  salt for password hashing
         fullName TEXT NOT NULL
     )`,
     (err) => {

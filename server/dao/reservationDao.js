@@ -77,3 +77,11 @@ const getReservationsByUserId = (userID) => {
     });
   });
 };
+
+// Export the functions to use in other modules
+module.exports = {
+  createReservation,
+  deleteReservationByBagId,
+  getReservationsByBagId,
+  getReservationsByUserId,
+};

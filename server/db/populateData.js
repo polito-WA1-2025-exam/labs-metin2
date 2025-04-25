@@ -239,21 +239,21 @@ const sampleDataForUserTable = [
     name: "John",
     email: "john.doe@gmail.com",
     password: "password123",
-    salt: "salt123",
+
     fullName: "John Doe",
   },
   {
     name: "Jane",
     email: "jane.smith@gmail.com",
     password: "password456",
-    salt: "salt456",
+
     fullName: "Jane Smith",
   },
   {
     name: "Alice",
     email: "alice.johnson@gmial.com",
     password: "password789",
-    salt: "salt789",
+
     fullName: "Alice Johnson",
   },
 ];
@@ -331,22 +331,28 @@ const insertSampleDataToTables = () => {
       }
     });
     // insert sample data into user table
+    const bcrypt = require("bcrypt");
     const insertUser = db.prepare(
-      "INSERT INTO users (name, email, password, salt, fullName) VALUES (?, ?, ?, ?, ?)"
+      "INSERT INTO users (name, email, password, fullName) VALUES (?, ?, ?, ?)"
     );
-    sampleDataForUserTable.forEach((user) => {
-      insertUser.run(
-        [user.name, user.email, user.password, user.salt, user.fullName],
-        (err) => {
-          if (err) {
-            console.error(
-              "Error inserting data into users table: " + err.message
-            );
-          } else {
-            console.log(`Inserted into users table: ${user.name}`);
+    sampleDataForUserTable.forEach((userData) => {
+      try {
+        const hashPwd = bcrypt.hashSync(userData.password, 10);
+        insertUser.run(
+          [userData.name, userData.email, hashPwd, userData.fullName],
+          (err) => {
+            if (err) {
+              console.log(
+                "Error inserting data into user table: " + err.message
+              );
+            } else {
+              console.log(`Inserted into user table: ${userData.name}`);
+            }
           }
-        }
-      );
+        );
+      } catch (error) {
+        console.error("hashing error: " + error.message);
+      }
     });
     insertUser.finalize((err) => {
       if (err) {

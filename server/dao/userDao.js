@@ -24,7 +24,7 @@ const getUserById = (id) => {
 // Function to get user by username
 const getUserByUsername = (username) => {
   return new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM users WHERE username = ?`;
+    const sql = `SELECT * FROM users WHERE name = ?`;
     db.get(sql, [username], (err, row) => {
       if (err) {
         console.error("Error fetching user by username: " + err.message);
