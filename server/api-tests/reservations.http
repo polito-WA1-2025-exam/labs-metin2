@@ -1,0 +1,25 @@
+# test reservations
+
+### create a reservation
+POST http://localhost:3001/api/reservations/
+Content-Type: application/json
+
+{
+    "userID": 3,
+    "bagID":6,
+    "status":"reserved",
+    "allergies":"fish",
+    "specialRequests":"more spicy",
+    "removedItems":["water"]
+}
+
+
+
+### delete a reservation by bag ID
+DELETE   http://localhost:3001/api/reservations/bags/6/reservations
+
+### get an reservations by bag ID
+GET  http://localhost:3001/api/reservations/bags/1/reservations
+
+### get an reservations by user ID
+GET  http://localhost:3001/api/reservations/users/1/reservations

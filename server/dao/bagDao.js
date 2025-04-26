@@ -37,9 +37,25 @@ const getBagById = (id) => {
   });
 };
 
+// Function to update bag status
+const updateBagStatus = (BagID, status) => {
+  return new Promise((resolve, reject) => {
+    const sql = `UPDATE bag SET status = ? WHERE id = ?`;
+    db.run(sql, [status, BagID], (err, row) => {
+      if (err) {
+        console.error("Error update bag status by ID: " + err.message);
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+};
+
 // Export the functions for use in other modules
 module.exports = {
   getAllBags,
   getBagById,
+  updateBagStatus,
 };
 // This module can be imported in other files to use the DAO functions for bags.

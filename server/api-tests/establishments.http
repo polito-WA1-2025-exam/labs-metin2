@@ -1,0 +1,7 @@
+# test establishments
+
+### get all establishments
+GET  http://localhost:3001/api/establishments/
+
+### get an establishment by ID
+GET  http://localhost:3001/api/establishments/10

@@ -1,0 +1,7 @@
+# test bags
+
+### get all bags
+GET  http://localhost:3001/api/bags/
+
+### get an bags by ID
+GET  http://localhost:3001/api/establishments/0

@@ -6,12 +6,18 @@
 const express = require("express");
 const router = express.Router();
 const reservationDao = require("../dao/reservationDao");
+const bagDao = require("../dao/bagDao");
 
 // Route to create a new reservation
 router.post("/", async (req, res) => {
   const reservation = req.body;
   try {
     const reservationId = await reservationDao.createReservation(reservation);
+    const updateBagStatusRow = await bagDao.updateBagStatus(
+      reservation.bagID,
+      reservation.status
+    );
+    console.log(updateBagStatusRow);
     res.status(201).json({ id: reservationId });
   } catch (error) {
     console.error("Error creating reservation:", error);
@@ -25,9 +31,15 @@ router.delete("/bags/:bagID/reservations", async (req, res) => {
   try {
     const changes = await reservationDao.deleteReservationByBagId(bagID);
     if (changes > 0) {
-      res.status(204).send();
+      res.status(200).json({
+        message: "reservation deleted sucessfully",
+        bagID: bagID,
+        deleteCount: changes,
+      });
     } else {
-      res.status(404).json({ error: "Reservation not found" });
+      res
+        .status(404)
+        .json({ error: "Reservation not found", "changes number": changes });
     }
   } catch (error) {
     console.error("Error deleting reservation:", error);
