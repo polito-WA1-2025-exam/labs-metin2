@@ -1,0 +1,7 @@
+# test users
+
+### get user by ID
+GET  http://localhost:3001/api/users/2
+
+### get user by name
+GET  http://localhost:3001/api/users/username/John

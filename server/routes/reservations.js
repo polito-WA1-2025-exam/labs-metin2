@@ -7,9 +7,10 @@ const express = require("express");
 const router = express.Router();
 const reservationDao = require("../dao/reservationDao");
 const bagDao = require("../dao/bagDao");
+const { isLoggedIn } = require("../middlewares/auth-middlewares");
 
 // Route to create a new reservation
-router.post("/", async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
   const reservation = req.body;
   try {
     const reservationId = await reservationDao.createReservation(reservation);
@@ -26,7 +27,7 @@ router.post("/", async (req, res) => {
 });
 
 // Route to delete a reservation by bag ID
-router.delete("/bags/:bagID/reservations", async (req, res) => {
+router.delete("/bags/:bagID/reservations", isLoggedIn, async (req, res) => {
   const bagID = req.params.bagID;
   try {
     const changes = await reservationDao.deleteReservationByBagId(bagID);
@@ -48,7 +49,7 @@ router.delete("/bags/:bagID/reservations", async (req, res) => {
 });
 
 // Route to get reservations by bag ID
-router.get("/bags/:bagID/reservations", async (req, res) => {
+router.get("/bags/:bagID/reservations", isLoggedIn, async (req, res) => {
   const bagID = req.params.bagID;
   try {
     const reservations = await reservationDao.getReservationsByBagId(bagID);
@@ -64,7 +65,7 @@ router.get("/bags/:bagID/reservations", async (req, res) => {
 });
 
 // Route to get reservations by user ID
-router.get("/users/:userID/reservations", async (req, res) => {
+router.get("/users/:userID/reservations", isLoggedIn, async (req, res) => {
   const userID = req.params.userID;
   try {
     const reservations = await reservationDao.getReservationsByUserId(userID);

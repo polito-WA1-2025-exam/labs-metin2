@@ -6,9 +6,10 @@
 const express = require("express");
 const router = express.Router();
 const bagDao = require("../dao/bagDao");
+const { isLoggedIn } = require("../middlewares/auth-middlewares");
 
 // Route to get all bags
-router.get("/", async (req, res) => {
+router.get("/", isLoggedIn, async (req, res) => {
   try {
     const bags = await bagDao.getAllBags();
     res.json(bags);
@@ -19,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // Route to get a bag by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", isLoggedIn, async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
     return res.status(400).json({ error: "Invalid bag ID" });

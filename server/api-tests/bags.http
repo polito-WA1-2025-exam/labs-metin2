@@ -4,4 +4,4 @@
 GET  http://localhost:3001/api/bags/
 
 ### get an bags by ID
-GET  http://localhost:3001/api/establishments/0
+GET  http://localhost:3001/api/bags/1

@@ -1,0 +1,21 @@
+# auth test
+### Login 
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "Jane",
+  "password": "password456"
+}
+
+###
+
+### Check session (should return user if logged in)
+GET http://localhost:3001/api/auth/session
+
+###
+
+### Logout
+POST http://localhost:3001/api/auth/logout
+
+###
