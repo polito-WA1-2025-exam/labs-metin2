@@ -73,3 +73,10 @@ async function getReservationsByUserId(userID) {
     return res.json();
   }
 }
+
+export {
+  createNewReservation,
+  deleteReservationByBagId,
+  getReservationsByBagId,
+  getReservationsByUserId,
+};

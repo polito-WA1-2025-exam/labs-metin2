@@ -7,7 +7,7 @@ const baseMidPath = "/api/auth";
  * @param {string}  credentials.password
  * @returns {Promise<Object>} user info (json)
  */
-export async function login(credentials) {
+async function login(credentials) {
   const res = await fetch(`${baseMidPath}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,7 +25,7 @@ export async function login(credentials) {
  * logout function
  *  @returns {Promise<void>} if failed, throw a error
  */
-export async function logOut() {
+async function logOut() {
   const res = await fetch(`${baseMidPath}/logout`, {
     method: "POST",
     credentials: "include",
@@ -39,7 +39,7 @@ export async function logOut() {
  * get current user function
  * @returns {Promise<object>} return current user info
  */
-export async function getCurrentUser() {
+async function getCurrentUser() {
   const res = await fetch(`${baseMidPath}/session`, {
     credentials: "include",
   });
@@ -49,3 +49,5 @@ export async function getCurrentUser() {
     return res.json();
   }
 }
+
+export { login, logOut, getCurrentUser };

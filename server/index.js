@@ -54,7 +54,7 @@ app.use("/api/reservations", reservationRouter);
 // Mount authentication routes
 app.use("/api/auth", authRouter);
 // Mount cart routes
-app.use("/api/carts");
+app.use("/api/carts", cartRouter);
 app.get("/api/ping", (req, res) => {
   res.json({ message: "pong" });
 });

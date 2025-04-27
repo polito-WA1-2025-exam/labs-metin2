@@ -1,5 +1,9 @@
 const baseMidPath = "/api/establishments";
 
+/**
+ * get all establishments
+ * @returns {Promise<Object>} establishment info (json)
+ */
 async function getAllEstablishments() {
   const res = await fetch(`${baseMidPath}/`, {});
   if (!res.ok) {
@@ -9,6 +13,11 @@ async function getAllEstablishments() {
   }
 }
 
+/**
+ * get establishment by id
+ * @param {string} id
+ * @returns {Promise<Object>} establishment info (json)
+ */
 async function getEstablishmentById(id) {
   const res = await fetch(`${baseMidPath}/${id}`, {});
   if (!res.ok) {
@@ -17,3 +26,5 @@ async function getEstablishmentById(id) {
     return res.json();
   }
 }
+
+export { getAllEstablishments, getEstablishmentById };

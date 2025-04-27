@@ -27,3 +27,5 @@ async function getUserByUsername(username) {
     return res.json();
   }
 }
+
+export { getUserById, getUserByUsername };

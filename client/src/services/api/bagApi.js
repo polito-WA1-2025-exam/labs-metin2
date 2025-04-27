@@ -21,3 +21,5 @@ async function getBagById(id) {
     return res.json();
   }
 }
+
+export { getAllBags, getBagById };
