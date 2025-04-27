@@ -42,3 +42,35 @@ router.delete("/:userID/:bagID", isLoggedIn, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// Route to get all bag id by user id
+router.get("/:userID", isLoggedIn, async (req, res) => {
+  const userID = req.params.userID;
+  try {
+    const bags = await cartDao.getAllBagsInCartByUserID(userID);
+    if (bags.length > 0) {
+      res.json(bags);
+    } else {
+      res.status(404).json({ error: "No bag found for this user" });
+    }
+  } catch (error) {
+    console.error("Error fetching bag:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Route to get all user id by bag id
+router.get("/:bagID", isLoggedIn, async (req, res) => {
+  const bagID = req.params.bagID;
+  try {
+    const users = await cartDao.getAllUserIncartByBagID(bagID);
+    if (users.length > 0) {
+      res.json(users);
+    } else {
+      res.status(404).json({ error: "No user found for this user" });
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});

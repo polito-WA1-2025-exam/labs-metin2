@@ -13,6 +13,7 @@ const bagRouter = require("./routes/bags");
 const userRouter = require("./routes/users");
 const reservationRouter = require("./routes/reservations");
 const authRouter = require("./routes/auth");
+const cartRouter = require("./routes/cart");
 const session = require("express-session");
 
 // import passport configuration
@@ -52,7 +53,8 @@ app.use("/api/users", userRouter);
 app.use("/api/reservations", reservationRouter);
 // Mount authentication routes
 app.use("/api/auth", authRouter);
-
+// Mount cart routes
+app.use("/api/carts");
 app.get("/api/ping", (req, res) => {
   res.json({ message: "pong" });
 });
