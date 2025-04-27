@@ -69,9 +69,29 @@ async function getAllUserInCartByBagID(bagID) {
     return res.json();
   }
 }
+
+/**
+ * confirm the cart and reserve all bags atomically
+ * @param {Object} reservationsData
+ * @returns {Promise<Object>} reservation info (json)
+ * @throws {Error} if the request fails
+ */
+async function confirmCart(reservationsData) {
+  const response = await fetch(`${baseMidPath}/${user.id}/confirm`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reservations: reservationsData }),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to confirm cart");
+  }
+  return response.json();
+}
 export {
   addItemToCart,
   removeItemFromCart,
   getAllBagsInCartByUserID,
   getAllUserInCartByBagID,
+  confirmCart,
 };
