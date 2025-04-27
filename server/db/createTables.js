@@ -45,7 +45,7 @@ const createBagTable = () => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         type TEXT NOT NULL,                     --  "suprise" or "regular"
         content TEXT,                           --  items listed in regular bag and option for suprise bag  
-        status TEXT NOT NULL DEFAULT "available", -- status of the bag, "available", "reserved"
+        status TEXT NOT NULL DEFAULT "available", -- status of the bag, "available", "reserved", "in-cart"
         price REAL NOT NULL,                    --  price of the bag
         size TEXT NOT NULL,                     --  size of the bag, "small", "medium", "large"
         pickupStart TEXT NOT NULL,              --  start time for pickup
@@ -90,7 +90,6 @@ const createReservationTable = () => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userID INTEGER NOT NULL,
         bagID INTEGER NOT NULL,
-        status TEXT NOT NULL DEFAULT "in-cart",            -- status of the reservation, "in-cart", "reserved"
         allergies TEXT,                               -- allergies of the user
         specialRequests TEXT,                      -- special requests of the user
         removedItems TEXT,                        -- items removed from the bag
@@ -103,6 +102,25 @@ const createReservationTable = () => {
         console.error("Error creating reservations table: " + err.message);
       } else {
         console.log("Reservations table created or already exists.");
+      }
+    }
+  );
+};
+
+// create cart table
+const createCartTable = () => {
+  db.run(
+    `CREATE TABLE IF NOT EXISTS shoppingCarts (
+  userID  INTEGER NOT NULL  REFERENCES users(id),
+  bagID   INTEGER NOT NULL  REFERENCES bag(id),
+  PRIMARY KEY(userID, bagID)
+)
+`,
+    (err) => {
+      if (err) {
+        console.error("Error creating cart table: " + err.message);
+      } else {
+        console.log("Cart table created or already exists");
       }
     }
   );
@@ -127,6 +145,9 @@ createBagTable();
 createUserTable();
 // Execute the reservation table creation
 createReservationTable();
+// Execute the cart table creation
+createCartTable();
 // Close the database connection
 closeDatabase();
+
 // This script should be run only once to create the tables.

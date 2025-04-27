@@ -1,11 +1,19 @@
-const APIURL = "http://localhost:3001"; // same port as Express
+const baseMidPath = "/api/establishments";
 
-async function getEstablishments() {
-  const response = await fetch(`${APIURL}/api/establishments`, {
-    credentials: "include",
-  });
-  if (!response.ok) throw new Error("Failed to get establishments");
-  return response.json();
+async function getAllEstablishments() {
+  const res = await fetch(`${baseMidPath}/`, {});
+  if (!res.ok) {
+    throw new Error("bad request to get all establishments");
+  } else {
+    return res.json();
+  }
 }
 
-export { getEstablishments };
+async function getEstablishmentById(id) {
+  const res = await fetch(`${baseMidPath}/${id}`, {});
+  if (!res.ok) {
+    throw new Error("bad request to get establishments by ID");
+  } else {
+    return res.json();
+  }
+}

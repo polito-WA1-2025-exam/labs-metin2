@@ -264,7 +264,6 @@ const sampleDataForReservationTable = [
   {
     userID: 1,
     bagID: 1,
-    status: "reserved",
     allergies: "none",
     specialRequests: "none",
     removedItems: "none",
@@ -272,7 +271,6 @@ const sampleDataForReservationTable = [
   {
     userID: 2,
     bagID: 3,
-    status: "reserved",
     allergies: "none",
     specialRequests: "none",
     removedItems: "none",
@@ -280,7 +278,6 @@ const sampleDataForReservationTable = [
   {
     userID: 1,
     bagID: 5,
-    status: "in-cart",
     allergies: "none",
     specialRequests: "none",
     removedItems: "none",
@@ -361,14 +358,13 @@ const insertSampleDataToTables = () => {
     });
     // insert sample data into reservation table
     const insertReservation = db.prepare(
-      "INSERT INTO reservations (userID, bagID, status, allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?, ?)"
+      "INSERT INTO reservations (userID, bagID,  allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?)"
     );
     sampleDataForReservationTable.forEach((reservation) => {
       insertReservation.run(
         [
           reservation.userID,
           reservation.bagID,
-          reservation.status,
           reservation.allergies,
           reservation.specialRequests,
           reservation.removedItems,

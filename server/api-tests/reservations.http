@@ -7,7 +7,7 @@ Content-Type: application/json
 {
     "userID": 3,
     "bagID":6,
-    "status":"reserved",
+    "status": "reserved",
     "allergies":"fish",
     "specialRequests":"more spicy",
     "removedItems":["water"]

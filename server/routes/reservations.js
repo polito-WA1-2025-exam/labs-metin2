@@ -7,16 +7,20 @@ const express = require("express");
 const router = express.Router();
 const reservationDao = require("../dao/reservationDao");
 const bagDao = require("../dao/bagDao");
+const cartDao = require("../dao/cartDao");
+
 const { isLoggedIn } = require("../middlewares/auth-middlewares");
 
-// Route to create a new reservation
+// Route to create a new reservation and update status of bag in bag table
 router.post("/", isLoggedIn, async (req, res) => {
   const reservation = req.body;
   try {
     const reservationId = await reservationDao.createReservation(reservation);
+
+    const status = reservation.status ?? "reserved";
     const updateBagStatusRow = await bagDao.updateBagStatus(
       reservation.bagID,
-      reservation.status
+      status
     );
     console.log(updateBagStatusRow);
     res.status(201).json({ id: reservationId });
@@ -31,6 +35,11 @@ router.delete("/bags/:bagID/reservations", isLoggedIn, async (req, res) => {
   const bagID = req.params.bagID;
   try {
     const changes = await reservationDao.deleteReservationByBagId(bagID);
+    const status = (await cartDao.getAllUserIncartByBagID(bagID)).length
+      ? "available"
+      : "in-cart";
+    const updateBagStatusInfo = await bagDao.updateBagStatus(bagID, status);
+    console.log(updateBagStatusInfo);
     if (changes > 0) {
       res.status(200).json({
         message: "reservation deleted sucessfully",

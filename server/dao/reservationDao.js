@@ -9,14 +9,13 @@ const db = require("./db");
 const createReservation = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO reservations (userID, bagID, status, allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO reservations (userID, bagID, allergies, specialRequests, removedItems) VALUES (?, ?, ?, ?, ?)
     `;
     db.run(
       sql,
       [
         reservation.userID,
         reservation.bagID,
-        reservation.status,
         reservation.allergies,
         reservation.specialRequests,
         JSON.stringify(reservation.removedItems),
